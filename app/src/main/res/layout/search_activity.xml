@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="346dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/bg"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:theme="?attr/actionBarTheme"
+        android:minHeight="?attr/actionBarSize"
+        >
+        <!--        <SearchView-->
+<!--            android:id="@+id/search_list"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:elevation="5dp"-->
+<!--            android:iconifiedByDefault="true"-->
+<!--            android:queryHint="Search..." />-->
+    </androidx.appcompat.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="106dp"
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:id="@+id/removeHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_below="@+id/listView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-40dp"
+        android:layout_marginEnd="154dp"
+        android:layout_marginBottom="8dp"
+        android:text="검색 기록 삭제" />
+
+</RelativeLayout>
