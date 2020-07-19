@@ -111,7 +111,6 @@ class LocationSearch : AppCompatActivity() {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-                    print("search$searchMenu")
                     if (address?.size!!>0) {
                         var list = listData().apply {
                             this.location = query
@@ -161,7 +160,7 @@ class LocationSearch : AppCompatActivity() {
             object : Thread() {
                 override fun run() {
                     var url =
-                        URL("https://dapi.kakao.com/v2/local/search/keyword.json?query=${newText}&size=5")
+                        URL("https://dapi.kakao.com/v2/local/search/keyword.json?query=${newText}&size=10")
                     var http = url.openConnection() as HttpsURLConnection
                     http.requestMethod = "GET"
                     http.setRequestProperty(

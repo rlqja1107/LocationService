@@ -1,7 +1,10 @@
 package com.example.test
 
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
@@ -28,29 +31,30 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
     NavigationView.OnNavigationItemSelectedListener, GoogleMap.OnMarkerClickListener{
     companion object{
         var mapKickBoard=ArrayList<KickBoardData>()
+        lateinit var map: GoogleMap
     }
     lateinit var mapFragment: SupportMapFragment
-    lateinit var map: GoogleMap
+
     var init_latitude: Double? = null
     var init_longitude: Double? = null
-    final private var FINISHTIME = 2000
+    private var FINISHTIME = 2000
     private var backPressedTime = 0L
-    lateinit var manager: LocationManager
-    var markerCount = 0
-    lateinit var uniqueMarker: Marker
+    private lateinit var manager: LocationManager
+    private var markerCount = 0
+    private lateinit var uniqueMarker: Marker
     lateinit var uniqueOverlay: GroundOverlay
     var permissionCheck = false
     lateinit var locationCallback:LocationCallback
     lateinit var mFusedLocationProvider: FusedLocationProviderClient
     lateinit var locationRequest:LocationRequest
-
+    lateinit var startLocation:LatLng
+    lateinit var endLocation:LatLng
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //위치를 켰는지 여부
         checkPermission()
-
 
 
         //Map에 표시
@@ -97,11 +101,6 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             }
         }
         var kickInstance=KickBoard()
-        //Deer 위치정보 가져오기
-        //kickInstance.deerLocation()
-        //kickInstance.pushToMap(map)
-        kickInstance.beamLocation()
-
         //toolbar 누르면 검색창으로 이동
         toolbar.setOnClickListener {
 
@@ -110,12 +109,26 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         }
 
         toolbar.setNavigationOnClickListener {
-
+            var transaction=supportFragmentManager.beginTransaction()
+            transaction.add(R.id.bottomLayout,ShowBottomSpace())
+                .addToBackStack(null)
+                .commit()
             MainDrawer.openDrawer(GravityCompat.START)
         }
-        //건물을 3차원적으로
+
 
         currentLocation.setOnClickListener {
+            var alert=AlertDialog.Builder(this)
+            alert.setMessage("현재 위치를 출발지로 하시겠습니까?")
+            alert.setPositiveButton("예"){ p0, p1 ->
+                startLocation= LatLng(init_latitude!!,init_longitude!!)
+                p0.dismiss()
+            }
+            alert.setNegativeButton("아니요"){ p0, p1 ->
+                p0.dismiss()
+            }
+
+            alert.show()
             moveCamera(init_latitude, init_longitude)
         }
         locationRequest=LocationRequest().setInterval(5000).setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -124,7 +137,9 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             override fun onLocationResult(p0: LocationResult?) {
                 p0?: return
                 var last=p0.lastLocation
-                uniqueOverlay.position= LatLng(last.latitude,last.longitude)
+                init_latitude=last.latitude
+                init_longitude=last.longitude
+                uniqueOverlay.position= LatLng(init_latitude!!,init_longitude!!)
 
                     super.onLocationResult(p0)
             }
@@ -144,6 +159,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         super.onStop()
     }
     override fun onBackPressed() {
+
         if (MainDrawer.isDrawerOpen(GravityCompat.START))
             MainDrawer.closeDrawer(GravityCompat.START)
         else {
@@ -193,10 +209,10 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             criteria.accuracy = Criteria.ACCURACY_MEDIUM
             criteria.powerRequirement = Criteria.POWER_MEDIUM
             manager.requestSingleUpdate(criteria, object : LocationListener {
-                override fun onLocationChanged(p0: Location?) {
+                override fun onLocationChanged(p0: android.location.Location?) {
                     init_latitude = p0?.latitude
                     init_longitude = p0?.longitude
-                    moveCamera(p0?.latitude, p0?.longitude)
+                    moveCamera(init_latitude, init_longitude)
                 }
 
                 override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -251,20 +267,21 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         map.animateCamera(camerUpdate)
     }
 
-     fun putMarker(latitude: Double, longitude: Double, title: String) {
+    private fun putMarker(latitude: Double, longitude: Double, title: String) {
         if (markerCount == 1) {
             uniqueMarker.remove()
             markerCount--
         }
-        if (markerCount <= 0) {
+        if (markerCount <= 1) {
             uniqueMarker = map.addMarker(
                 MarkerOptions().position(
                     LatLng(
                         latitude,
                         longitude
                     )
-                ).draggable(false).title(title)
+                ).draggable(false)
             )
+
             uniqueMarker.tag = 0
             markerCount++
         }

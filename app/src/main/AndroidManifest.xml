@@ -18,8 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".LocationSearch"/>
+        <activity android:name=".MainActivity"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true">
+
+        </activity>
+
+
+                <activity android:name=".LocationSearch"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key"
