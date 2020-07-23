@@ -1,7 +1,5 @@
 package com.example.test
 
-import android.location.Location
-import com.google.android.gms.maps.model.Polyline
 
 class GoogleMapDTO {
     var routes=ArrayList<Routes>()
@@ -17,7 +15,10 @@ class Legs{
     var end_location=Location()
     var start_location=Location()
     var steps=ArrayList<Steps>()
+    var arrival_time=Time()
+    var departure_time=Time()
 }
+
 class Steps{
     var distance=Distance()
     var duration=Duration()
@@ -28,6 +29,36 @@ class Steps{
     var polyline=PolyLine()
     var travel_mode=""
     var maneuver=""
+    var html_instructions=""
+    var transit_detail=Transit()
+}
+class Transit{
+    var arrival_stop=Arrival()
+    var arrival_time=Time()
+    var departure_stop=Arrival()
+    var departure_time=Time()
+    var line=Line()
+    var num_stops=0
+}
+class Time{
+    var text=""
+    var value=0
+    var time_zone=""
+}
+class Line{
+    var color=""
+    var name=""
+    var short_name=""
+    var vehicle=Vehicle()
+}
+class Vehicle{
+    var icon=""
+    var name=""
+    var type=""
+}
+class Arrival{
+    var location=Location()
+    var name=""
 }
 class Duration{
     var text=""

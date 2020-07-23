@@ -11,27 +11,28 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="185dp"
-            android:layout_height="78dp"
+            android:id="@+id/endButton"
+            android:layout_width="104dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="44dp"
+            android:background="@drawable/button_click_bottom"
             android:text="목적지 설정"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="#FF000000"
             android:textColor="#FFF0F8FF"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="176dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="60dp"
+            android:id="@+id/startButton"
+            android:layout_width="102dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_click_bottom"
             android:text="출발지 설정"
-            app:layout_constraintEnd_toStartOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="#FF000000"
             android:textColor="#FFF0F8FF"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

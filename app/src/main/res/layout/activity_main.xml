@@ -8,12 +8,64 @@
     android:id="@+id/MainDrawer"
     >
 
+
+    <TextView
+        android:id="@+id/showTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="550dp"
+        android:text="TextView"
+        android:textSize="20dp" />
+
     <fragment
         android:id="@+id/google_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="130dp" />
+        android:layout_marginBottom="0dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/findWay"
+            android:layout_width="101dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="628dp"
+            android:background="@drawable/button_click_bottom"
+            android:text="경로시작"
+            app:layout_constraintStart_toEndOf="@+id/startButton2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/endButton2"
+            android:layout_width="101dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="628dp"
+            android:background="@drawable/button_click_bottom"
+            android:text="목적지 설정"
+            android:textColor="#FFF0F8FF"
+            app:layout_constraintStart_toEndOf="@+id/findWay"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/startButton2"
+            android:layout_width="101dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="628dp"
+            android:background="@drawable/button_click_bottom"
+            android:text="출발지 설정"
+            android:textColor="#FFF0F8FF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -26,15 +78,6 @@
         android:background="@drawable/bg"
         android:clickable="true"
         app:navigationIcon="@android:drawable/ic_menu_sort_by_size">
-
-        <!--        <SearchView-->
-        <!--            android:id="@+id/search"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="10dp"-->
-        <!--            android:elevation="5dp"-->
-        <!--            android:iconifiedByDefault="false"-->
-        <!--            android:queryHint="Search..." />-->
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
@@ -70,13 +113,13 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/button_click_effect" />
 
-    <FrameLayout
-        android:id="@+id/bottomLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="600dp">
+    <!--    <FrameLayout-->
+<!--        android:id="@+id/bottomLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="600dp">-->
 
-    </FrameLayout>
+<!--    </FrameLayout>-->
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

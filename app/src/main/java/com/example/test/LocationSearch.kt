@@ -3,7 +3,7 @@ package com.example.test
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.hardware.SensorManager
+
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.graphics.rotationMatrix
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.Sort
@@ -22,7 +21,6 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import kotlin.collections.ArrayList
@@ -205,7 +203,7 @@ class LocationSearch : AppCompatActivity() {
                 }
             }.start()
         }
-        if (newText == null || newText == "") {
+        if (newText == "") {
             temp.clear()
             searchOrList = 0
             for (i in listMenu)

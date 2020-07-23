@@ -29,9 +29,11 @@ android {
 }
 
 dependencies {
+   // compile 'com.github.ar-android:DrawRouteMaps:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.yarolegovich:sliding-root-nav:1.0.2'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+//    implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -42,9 +44,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.android.support:design:27.1.1'
+ //   implementation 'com.android.support:design:27.1.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.8.0'
+
 
 
 }
