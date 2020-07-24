@@ -21,11 +21,9 @@
         <activity android:name=".MainActivity"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true">
-
         </activity>
-
-
                 <activity android:name=".LocationSearch"/>
+                <activity android:name=".ChooseTransferList"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key"

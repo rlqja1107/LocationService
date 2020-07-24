@@ -29,7 +29,7 @@ android {
 }
 
 dependencies {
-   // compile 'com.github.ar-android:DrawRouteMaps:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.yarolegovich:sliding-root-nav:1.0.2'
     implementation 'com.google.code.gson:gson:2.8.6'

@@ -30,7 +30,7 @@ class Steps{
     var travel_mode=""
     var maneuver=""
     var html_instructions=""
-    var transit_detail=Transit()
+    var transit_details=Transit()
 }
 class Transit{
     var arrival_stop=Arrival()
@@ -47,6 +47,7 @@ class Time{
 }
 class Line{
     var color=""
+    var text_color=""
     var name=""
     var short_name=""
     var vehicle=Vehicle()
@@ -72,6 +73,6 @@ class PolyLine{
     var points=""
 }
 class Location{
-    var lat=""
-    var lng=""
+    var lat=0.0
+    var lng=0.0
 }

@@ -28,14 +28,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 
 
-
 class MainActivity : FragmentActivity(), OnMapReadyCallback,
-    NavigationView.OnNavigationItemSelectedListener, GoogleMap.OnMarkerClickListener{
+    NavigationView.OnNavigationItemSelectedListener, GoogleMap.OnMarkerClickListener {
     companion object {
         var mapKickBoard = ArrayList<KickBoardData>()
         lateinit var map: GoogleMap
         var polyline: Polyline? = null
-        var walkingTime:String=""
+        var walkingTime: String = ""
     }
 
     lateinit var mapFragment: SupportMapFragment
@@ -55,7 +54,8 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
     lateinit var locationRequest: LocationRequest
     var startLocation: LatLng? = null
     var endLocation: LatLng? = null
-    private lateinit var nearbyMarker:ArrayList<Marker>
+    private lateinit var nearbyMarker: ArrayList<Marker>
+
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         startButton2.visibility = View.GONE
         endButton2.visibility = View.GONE
         findWay.visibility = View.GONE
-        showTime.visibility=View.GONE
+        showTime.visibility = View.GONE
 
         //Map에 표시
         init_latitude = intent.getDoubleExtra("latitude", 37.56398)
@@ -79,7 +79,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         if (permissionCheck) {
             requestPermission()
         }
-        var a=Location("start")
+        var a = Location("start")
         //checking==0이면 snackbar로 권한 체크 유도(위치기능 켜기)
         if (checking == 0) {
             Snackbar.make(
@@ -97,6 +97,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         //초기 화면 설정
         mapFragment.getMapAsync {
             map = it
+            addKickBoardMarker(it)
             //getJson(map)
             //Info 설정
 //            map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
@@ -114,8 +115,10 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
 //
 //            })
             it.setOnMarkerClickListener { its ->
-                var lat = its.tag as LatLng
-                showButton(lat.latitude, lat.longitude)
+                if (its.tag != null) {
+                    var lat = its.tag as LatLng
+                    showButton(lat.latitude, lat.longitude)
+                }
                 false
             }
             it.moveCamera(CameraUpdateFactory.newLatLngZoom(initLatLng, 17F))
@@ -130,7 +133,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             var a = uniqueOverlay
 
             it.setOnMapLongClickListener { its ->
-                showBottomFragment()
+
                 showButton(its.latitude, its.longitude)
                 putMarker(its.latitude, its.longitude, "Here we go~")
             }
@@ -154,9 +157,9 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             alert.setMessage("현재 위치를 출발지로 하시겠습니까?")
             alert.setPositiveButton("예") { p0, p1 ->
                 startLocation = LatLng(init_latitude!!, init_longitude!!)
-                if(polyline!=null){
+                if (polyline != null) {
                     polyline?.remove()
-                    polyline=null
+                    polyline = null
                 }
                 p0.dismiss()
             }
@@ -181,7 +184,6 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
                 super.onLocationResult(p0)
             }
         }
-
         mFusedLocationProvider = LocationServices.getFusedLocationProviderClient(this)
         mFusedLocationProvider.requestLocationUpdates(locationRequest, locationCallback, null)
 
@@ -199,10 +201,6 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
 
     override fun onBackPressed() {
         closeButton()
-//        if (supportFragmentManager.findFragmentById(R.id.bottomLayout) != null) {
-//            supportFragmentManager.popBackStack()
-//            return
-//        }
         if (MainDrawer.isDrawerOpen(GravityCompat.START))
             MainDrawer.closeDrawer(GravityCompat.START)
         else {
@@ -214,21 +212,10 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
                 Toast.makeText(this, "종료하려면 한 번 더 뒤로가기 누르세요", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onMapReady(p0: GoogleMap?) {
         map = p0!!
-//        var origin=LatLng(37.560312,127.039445)
-//        var dest=LatLng(37.549773,127.042917)
-//        DrawRouteMaps.getInstance(this).draw(origin,dest,map)
-//        var bounds=LatLngBounds.Builder()
-//            .include(origin).include(dest).build()
-//        var display= Point()
-//        windowManager.defaultDisplay.getSize(display)
-//        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,display.x,250,30))
-
-
     }
 
     //Navigation item 선택시
@@ -283,7 +270,6 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             var latitude = data?.getDoubleExtra("latitude", init_latitude!!)
             var longitude = data?.getDoubleExtra("longitude", init_longitude!!)
             var location = data?.getStringExtra("location")
-            showBottomFragment()
             showButton(latitude!!, longitude!!)
             moveCamera(latitude, longitude)
             putMarker(latitude, longitude, location!!)
@@ -295,13 +281,13 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
 
     //마커 눌렀을 때
     override fun onMarkerClick(p0: Marker?): Boolean {
-        var latlng = p0?.tag as LatLng
-        showButton(latlng.latitude, latlng.longitude)
+        if (p0?.tag != null) {
+            var latlng = p0?.tag as LatLng
+            showButton(latlng.latitude, latlng.longitude)
+        }
         return false
     }
 
-    private fun showBottomFragment() {
-    }
 
     private fun requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
@@ -327,7 +313,6 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         }
     }
 
-
     private fun showButton(latitude: Double, longitude: Double) {
         startButton2.visibility = View.VISIBLE
         findWay.visibility = View.VISIBLE
@@ -335,8 +320,11 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             if (endLocation == null || startLocation == null)
                 Toast.makeText(this@MainActivity, "출발 지점 또는 목적지점을 지정하십시오", Toast.LENGTH_LONG).show()
             else {
-                  var url=Direction_Finder().getUrlByNaver(startLocation!!,endLocation!!)
-                  Direction_Finder().FindWayByNaver(url).execute()
+
+                val intentToList=Intent(this,ChooseTransferList::class.java)
+                intentToList.putExtra("start",startLocation)
+                intentToList.putExtra("destination",endLocation)
+                startActivity(intentToList)
 //                var direction = Direction_Finder()
 //                var url = direction.getDirectionUrl(startLocation!!, endLocation!!)
 //                direction.GetDirection(url).execute()
@@ -388,9 +376,9 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             total++
         }
         if (markerCount <= 2) {
-            if(polyline!=null){
+            if (polyline != null) {
                 polyline?.remove()
-                polyline=null
+                polyline = null
             }
             if (uniqueMarker == null) {
                 uniqueMarker = map.addMarker(
@@ -432,45 +420,47 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
         }
         return permissionCheck
     }
+
     //json파일로 좌표찍기
-    private fun addKickBoardMarker(map:GoogleMap):String{
-        var json=""
-        try{
-            var stream=application.resources.assets
-            val input=stream.open("data1.json")
-            val jsonString=input.bufferedReader().use{it.readText()}
-            val jobject=JSONArray(jsonString)
-            var location1=Location("start")
-            location1.latitude=init_latitude!!
-            location1.longitude=init_longitude!!
-            nearbyMarker=ArrayList<Marker>()
-            var distance=0F
-            var lat:Double?=null
-            var lng:Double?=null
-            var location2:Location?=null
-            for(i in 0 until jobject.length()){
-                val obj= jobject.getJSONObject(i)
-                lat=obj.getDouble("Latitude")
-                lng=obj.getDouble("Longitude")
-                location2=Location("destination")
-                location2.latitude=lat
-                location2.longitude=lng
-                distance=location1.distanceTo(location2)
-                if(distance<50000) {
-                    nearbyMarker.add(map.addMarker(
-                        MarkerOptions().position(LatLng(lat, lng))
-                            .title(obj.getInt("Battery").toString())
-                    ))
+    private fun addKickBoardMarker(map: GoogleMap): String {
+        var json = ""
+        try {
+            var stream = application.resources.assets
+            val input = stream.open("data1.json")
+            val jsonString = input.bufferedReader().use { it.readText() }
+            val jobject = JSONArray(jsonString)
+            println("jobject" + jobject)
+            var location1 = Location("start")
+            location1.latitude = init_latitude!!
+            location1.longitude = init_longitude!!
+            nearbyMarker = ArrayList<Marker>()
+            var distance = 0F
+            var lat: Double? = null
+            var lng: Double? = null
+            var location2: Location? = null
+            for (i in 0 until jobject.length()) {
+                val obj = jobject.getJSONObject(i)
+                lat = obj.getDouble("Latitude")
+                lng = obj.getDouble("Longitude")
+                location2 = Location("destination")
+                location2.latitude = lat
+                location2.longitude = lng
+                distance = location1.distanceTo(location2)
+                if (distance < 300) {
+                    nearbyMarker.add(
+                        map.addMarker(
+                            MarkerOptions().position(LatLng(lat, lng))
+                                .title(obj.getInt("Battery").toString())
+                        )
+                    )
                 }
             }
 
-        }
-        catch(e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
         return json
     }
-
 
 }
