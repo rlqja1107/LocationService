@@ -26,7 +26,7 @@
             app:layout_constraintTop_toBottomOf="@+id/timeListText" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/clickPicture"
             android:layout_width="107dp"
             android:layout_height="134dp"
             android:layout_marginStart="13dp"
@@ -78,7 +78,7 @@
             android:layout_height="134dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toEndOf="@+id/clickPicture"
             app:layout_constraintTop_toBottomOf="@+id/walking_html" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <Button
+        android:id="@+id/findWay"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="경로시작"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/endButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="목적지 설정"
+        android:textColor="#FFF0F8FF"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/startButton"
+
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="출발지 설정"
+        android:textColor="#FFF0F8FF"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/findWay"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

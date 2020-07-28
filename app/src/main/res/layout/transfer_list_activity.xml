@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:gravity="bottom"
+    app:umanoPanelHeight="300dp"
+    android:id="@+id/sortSliding"
+    app:umanoShadowHeight="4dp"
+    app:umanoFadeColor="@android:color/transparent"
+    app:umanoScrollableView="@id/selectRecyclerView"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <TextView
         android:id="@+id/StartText"
@@ -14,10 +27,10 @@
         android:layout_marginEnd="28dp"
         android:background="@drawable/bg"
         android:gravity="center_vertical"
-        android:text="Loading..."
+        android:text="   Loading..."
         android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        sothree:layout_constraintEnd_toEndOf="parent"
+        sothree:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/endText"
@@ -27,10 +40,10 @@
         android:layout_marginEnd="28dp"
         android:background="@drawable/bg"
         android:gravity="center_vertical"
-        android:text="Loading..."
+        android:text="   Loading..."
         android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/StartText" />
+        sothree:layout_constraintEnd_toEndOf="parent"
+        sothree:layout_constraintTop_toBottomOf="@+id/StartText" />
 
     <Button
         android:id="@+id/backPressed"
@@ -39,21 +52,20 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
         android:background="?attr/homeAsUpIndicator"
-        app:layout_constraintEnd_toStartOf="@+id/StartText"
-        app:layout_constraintTop_toTopOf="parent" />
+        sothree:layout_constraintEnd_toStartOf="@+id/StartText"
+        sothree:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transferRecyclerview"
-        android:layout_width="361dp"
-        android:layout_height="454dp"
+        android:layout_width="344dp"
+        android:layout_height="446dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endText"
-        app:layout_constraintVertical_bias="0.364" />
+        sothree:layout_constraintEnd_toEndOf="parent"
+        sothree:layout_constraintStart_toStartOf="parent"
+        sothree:layout_constraintTop_toBottomOf="@+id/endText"
+        sothree:layout_constraintVertical_bias="0.364" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -61,7 +73,40 @@
         android:layout_height="49dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="103dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/StartText"
-        app:srcCompat="@drawable/go" />
+        sothree:layout_constraintEnd_toEndOf="parent"
+        sothree:layout_constraintTop_toBottomOf="@+id/StartText"
+        sothree:srcCompat="@drawable/go" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/transferSliding"
+        android:orientation="vertical"
+        android:focusable="false"
+        android:clickable="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="KickBoard"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:textSize="20dp"
+
+                >
+            </TextView>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:id="@+id/selectRecyclerView"
+            ></androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

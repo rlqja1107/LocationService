@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.transfer_list_sample.view.*
 
 
 class TransferViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
-class TransferAdapter(var data:ArrayList<ArrayList<TransferData>>):RecyclerView.Adapter<TransferViewHolder>() {
+class TransferAdapter(var data:ArrayList<ArrayList<TransferData>>,val itemCLick:(Int)->Unit ):RecyclerView.Adapter<TransferViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransferViewHolder {
         return TransferViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.transfer_list_sample,parent,false))
     }
@@ -28,6 +28,9 @@ class TransferAdapter(var data:ArrayList<ArrayList<TransferData>>):RecyclerView.
         holder.itemView.walking_html.text ="${data[position][0].word}"
         Glide.with(ChooseTransferList.context).load(R.drawable.walking2)
             .into(GlideDrawableImageViewTarget(holder.itemView.walkingImage))
+        holder.itemView.clickPicture.setOnClickListener {
+            itemCLick(data[position][0].duration.toInt())
+        }
         var transferTemp = data[position].filter{
             it.mode=="TRANSIT"
         }
