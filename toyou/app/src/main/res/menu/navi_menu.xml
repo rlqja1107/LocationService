@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+    <item
+        android:title="로그인"
+        android:id="@+id/Login">
+    </item>
+    <item android:title="마이페이지"
+        android:id="@+id/Mypage"
+        >
+        </item>
+    <item
+        android:id="@+id/Setting"
+        android:title="설정" >
+    </item>
+    <item android:title="공지사항"
+        android:id="@+id/Notification"
+        >
+    </item>
+    </group>>
+</menu>

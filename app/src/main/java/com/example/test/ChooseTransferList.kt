@@ -1,12 +1,15 @@
 package com.example.test
 
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.renderscript.ScriptGroup
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.gson.Gson
@@ -26,12 +29,13 @@ class ChooseTransferList : AppCompatActivity() {
     companion object {
         lateinit var context: Context
         var duration: String? = null
+        var transferPass:LatLng?=null
     }
 
     var distance: String? = null
     var startAddress: String? = null
     var endAddress: String? = null
-
+    var destination:LatLng?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transfer_list_activity)
@@ -96,7 +100,6 @@ class ChooseTransferList : AppCompatActivity() {
             // val result = ArrayList<List<LatLng>>()
             var transferArray = ArrayList<TransferData>()
             try {
-
                 val obj = Gson().fromJson(data, GoogleMapDTO::class.java)
                 val path = ArrayList<LatLng>()
                 var tempObject = obj.routes[0].legs[0]
@@ -111,6 +114,7 @@ class ChooseTransferList : AppCompatActivity() {
                         LatLng(tempObject2.start_location.lat, tempObject2.start_location.lng)
 
                     var end = LatLng(tempObject2.end_location.lat, tempObject2.end_location.lng)
+                    if(i==0) destination=end
                     transferArray.add(
                         TransferData(
                             tempObject2.distance.value,
@@ -148,19 +152,25 @@ class ChooseTransferList : AppCompatActivity() {
             var tempArray = ArrayList<ArrayList<TransferData>>().apply {
                 this.add(result!!)
             }
-            var adapter = TransferAdapter(tempArray) { time ->
+            var adapter = TransferAdapter(tempArray) {time ->
                 var array = MainActivity.nearbyMarker
                 var calculate = CalculatePrice()
-                for (i in array) {
+                for (i in array){
                     i.price = calculate.calculatePrice(i.company, time)
                 }
-                array.sortBy {
+                array.sortBy{
                     it.distance
                 }
-                selectRecyclerView.adapter = SortDataAdapter(array)
+                selectRecyclerView.adapter = SortDataAdapter(array){
+                    transferPass=it
+                    var intent= Intent(this@ChooseTransferList,MainActivity::class.java)
+                    intent.putExtra("position",it)
+                    intent.putExtra("destination",destination)
+                    setResult(5,intent)
+                    finish()
+                }
                 sortSliding.panelState= SlidingUpPanelLayout.PanelState.EXPANDED
             }
-
             transferRecyclerview.layoutManager=LinearLayoutManager(this@ChooseTransferList)
             transferRecyclerview.adapter = adapter
         }

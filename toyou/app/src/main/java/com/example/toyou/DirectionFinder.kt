@@ -1,12 +1,10 @@
-package com.example.test
+package com.example.toyou
 
 
-import android.graphics.Color
 import android.location.Geocoder
 import android.os.AsyncTask
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.PolylineOptions
+
+import com.naver.maps.geometry.LatLng
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,13 +13,16 @@ import org.json.JSONObject
 import java.lang.Exception
 
 data class TransferData(var distance:Int,var duration:Double,var start:LatLng,var end:LatLng,var word:String="",var mode:String,var transit:Transit)
-data class KickBoardData(var marker: Marker, var price:Int,var distance:Int,var company:String)
+data class TransitData(var startName:String="",var startX:Double=0.0,var startY:Double=0.0,var routeNum:String="",var endName:String="",var endX:Double=0.0,var endY:Double=0.0,var stationNum:Int=0)
+data class TransitArray(var dataList:ArrayList<TransitData>,var time:Int=0,var distance:Int)
+
 class DirectionFinder {
     fun getPublicDataUrl(origin:LatLng,dest: LatLng): String {
         return "http://ws.bus.go.kr/api/rest/pathinfo/getPathInfoByBusNSub?ServiceKey=ni9VQODwzGpRojq47XEsS7onMl0VqL9Kux%2FfdAMaI1Hy2Twgvfcj%2FDPsCrtewJNjALyxGGoN1B8psN9bIiH62A%3D%3D&startX=${origin.longitude}&startY=${origin.latitude}&endX=${dest.longitude}&endY=${dest.latitude}"
     }
-    fun getDirectionUrl(origin: LatLng, dest: LatLng): String {
-        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${dest.latitude},${dest.longitude}&mode=transit&departure_time=now&language=ko&key=AIzaSyD0982tla5btYfpYCWfH23NRXFU7pirdWc"
+    fun getDirectionUrl(origin: LatLng, dest: LatLng,pass:ArrayList<LatLng>): String {
+
+        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${dest.latitude},${dest.longitude}&waypoinst=&mode=transit&departure_time=now&language=ko&key=AIzaSyD0982tla5btYfpYCWfH23NRXFU7pirdWc"
         //        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${dest.latitude},${dest.longitude}&mode=walking&key=AIzaSyD0982tla5btYfpYCWfH23NRXFU7pirdWc"
 
     }
@@ -37,15 +38,7 @@ class DirectionFinder {
         var address= geo.getFromLocation(latitude,longitude,1)
         if(address.size==0)
             return "해당되는 주소 정보는 없습니다."
-
         else {
-            println("Checking1:${address[0].adminArea}")
-            println("Checking2:${address[0].featureName}")
-            println("Checking3:${address[0].locality}")
-            println("Checking4:${address[0].locale}")
-            println("Checking5:${address[0].subLocality}")
-
-
             var addressline=address[0].getAddressLine(0).replace("대한민국","")
 
             return addressline
@@ -57,7 +50,7 @@ class DirectionFinder {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
-            val data = response.body?.string()
+            val data = response.body()?.string()
             var result=ArrayList<LatLng>()
             try{
                 val obj=JSONObject(data)
@@ -88,32 +81,6 @@ class DirectionFinder {
         }
         var colorflag=true
         override fun onPostExecute(result: List<LatLng>?) {
-            var option=PolylineOptions()
-            if(result!=null) {
-                if(MainActivity.polyline.size>0){
-                    for(i in MainActivity.polyline) {
-                        i.remove()
-                    }
-                    MainActivity.polyline.clear()
-                }
-                for (i in result.listIterator()) {
-                    if(colorflag) {
-                        option.add(i).width(20F).color(Color.BLACK).geodesic(true)
-                    if(Math.abs(i.latitude-ChooseTransferList.transferPass?.latitude!!)<0.00001&&
-                            Math.abs(i.longitude-ChooseTransferList.transferPass?.longitude!!)<0.00001){
-                        MainActivity.polyline.add(MainActivity.map.addPolyline(option))
-                        option=PolylineOptions()
-                        colorflag=false
-
-                    }
-                    }
-                    else{
-                        option.add(i).width(20F).color(Color.RED).geodesic(true)
-                    }
-                    }
-
-                MainActivity.polyline.add(MainActivity.map.addPolyline(option))
-            }
         }
 
     }
@@ -124,7 +91,7 @@ class DirectionFinder {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
-            val data = response.body?.string()
+            val data = response.body()?.string()
 
 
             val result = ArrayList<LatLng>()
@@ -145,19 +112,7 @@ class DirectionFinder {
         }
 
         override fun onPostExecute(result: List<LatLng>?) {
-            if (result != null) {
-                var option=PolylineOptions()
-                for (i in result.listIterator()){
 
-                    option.add(i)
-                        .width(15F)
-                        .color(Color.GREEN)
-                        .geodesic(true)
-
-                }
-                MainActivity.polyline.add( MainActivity.map.addPolyline(option))
-
-            }
         }
     }
 

@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.sortdata_list_sample.view.*
 
 class SortDataViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
 
-class SortDataAdapter(var data:ArrayList<KickBoardData>) :RecyclerView.Adapter<SortDataViewHolder>(){
+class SortDataAdapter(var data:ArrayList<KickBoardData>,val click:(LatLng)->(Unit)) :RecyclerView.Adapter<SortDataViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SortDataViewHolder {
         var view=LayoutInflater.from(parent.context).inflate(R.layout.sortdata_list_sample,parent,false)
         return SortDataViewHolder(view)
@@ -41,7 +42,9 @@ class SortDataAdapter(var data:ArrayList<KickBoardData>) :RecyclerView.Adapter<S
         }
         holder.itemView.companyText.text=data[position].company
         holder.itemView.valueText.text="${data[position].distance.toString()}m"
-
+        holder.itemView.choooseLayout.setOnClickListener {
+            click(LatLng(data[position].marker.position.latitude,data[position].marker.position.longitude))
+        }
 
     }
 }

@@ -34,7 +34,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
     NavigationView.OnNavigationItemSelectedListener {
     companion object {
         lateinit var map: GoogleMap
-        var polyline: Polyline? = null
+        var polyline: ArrayList<Polyline> =ArrayList<Polyline>()
         var walkingTime: String = ""
         lateinit var nearbyMarker: ArrayList<KickBoardData>
         var context:Context?=null
@@ -153,9 +153,11 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             alert.setMessage("현재 위치를 출발지로 하시겠습니까?")
             alert.setPositiveButton("예") { p0, p1 ->
                 startLocation = LatLng(init_latitude!!, init_longitude!!)
-                if (polyline != null) {
-                    polyline?.remove()
-                    polyline = null
+                if (polyline.size>0) {
+                    for(i in polyline) {
+                        i.remove()
+                    }
+                    polyline.clear()
                 }
                 p0.dismiss()
             }
@@ -278,6 +280,15 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             moveCamera(latitude, longitude)
             putMarker(latitude, longitude, location!!)
         }
+        //해당하는 킥보드부터의 경로찾기
+        if(requestCode==5&&resultCode==5){
+            var position=data?.getParcelableExtra<LatLng>("position")
+            var destination=data?.getParcelableExtra<LatLng>("destination")
+            var finder=DirectionFinder()
+            var url=finder.getUrlByTmap(LatLng(init_latitude!!,init_longitude!!),destination!!,position!!)
+            finder.FindWayByTmap(url).execute()
+            moveCamera(init_latitude,init_longitude)
+        }
 
 
         super.onActivityResult(requestCode, resultCode, data)
@@ -320,7 +331,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
                 val intentToList=Intent(this,ChooseTransferList::class.java)
                 intentToList.putExtra("start",startLocation)
                 intentToList.putExtra("destination",endLocation)
-                startActivity(intentToList)
+                startActivityForResult(intentToList,5)
 //                var direction = Direction_Finder()
 //                var url = direction.getDirectionUrl(startLocation!!, endLocation!!)
 //                direction.GetDirection(url).execute()
@@ -356,9 +367,10 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback,
             total++
         }
         if (markerCount <= 2) {
-            if (polyline != null) {
-                polyline?.remove()
-                polyline = null
+            if (polyline.size>0) {
+                for(i in polyline)
+                    i.remove()
+                polyline.clear()
             }
             if (uniqueMarker == null) {
                 uniqueMarker = map.addMarker(
