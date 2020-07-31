@@ -31,23 +31,21 @@
             android:id="@+id/transferlist"
             android:layout_width="match_parent"
             android:layout_height="74dp"
-
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/timeText"
-            android:layout_width="81dp"
-            android:layout_height="28dp"
+            android:layout_width="129dp"
+            android:layout_height="31dp"
             android:layout_marginStart="23dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:text="Time"
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/transferRecyclerview"
             app:layout_constraintStart_toStartOf="parent"

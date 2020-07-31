@@ -1,49 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="400dp">
 
 
     <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/confirm_button_click"
+        android:text="확인"
+        android:textColor="#1033F8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentText" />
+
+    <Button
         android:id="@+id/findWay"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="22dp"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="경로시작"
-        android:textSize="12dp"
+        android:textSize="10dp"
         app:layout_constraintEnd_toStartOf="@+id/endButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/endButton"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="22dp"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="목적지 설정"
         android:textColor="#FFF0F8FF"
-        android:textSize="12dp"
+        android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/startButton"
 
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="22dp"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="출발지 설정"
         android:textColor="#FFF0F8FF"
-        android:textSize="12dp"
+        android:textSize="10dp"
         app:layout_constraintEnd_toStartOf="@+id/findWay"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="61dp"
+        android:gravity="center"
+        android:text="제목 :"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="시간 -> "
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/titleText"
+        android:layout_width="326dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="61dp"
+        android:background="@drawable/text_outer"
+        android:ems="10"
+        android:hint="제목을 입력하세요"
+        android:inputType="textPersonName"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/timerImage"
+        android:layout_width="36dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/timer_click"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        app:srcCompat="@drawable/clock" />
+
+    <EditText
+        android:id="@+id/contentText"
+        android:layout_width="381dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="null"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

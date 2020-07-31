@@ -1,6 +1,7 @@
 package com.example.toyou
 
 import android.content.Context
+import android.graphics.Point
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.google.gson.Gson
 import com.naver.maps.geometry.LatLng
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.transfer_list_activity.*
+import kotlinx.android.synthetic.main.transfer_list_sample.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.xmlpull.v1.XmlPullParser
@@ -24,7 +26,8 @@ class ChooseTransferList : AppCompatActivity() {
         var duration: String? = null
         var transferPass: LatLng? = null
     }
-
+    var width:Int=0
+    var height:Int=222
     var distance: String? = null
     var startAddress: String? = null
     var endAddress: String? = null
@@ -36,6 +39,8 @@ class ChooseTransferList : AppCompatActivity() {
             onBackPressed()
         }
         context = this
+        var display=windowManager.defaultDisplay
+        display.getSize(Point())
         selectRecyclerView.layoutManager = LinearLayoutManager(this@ChooseTransferList)
         sortSliding.panelState = SlidingUpPanelLayout.PanelState.HIDDEN
         var startLocation = intent.getParcelableExtra<LatLng>("start")
@@ -48,6 +53,7 @@ class ChooseTransferList : AppCompatActivity() {
             "   ${DirectionFinder().convertToAddress(endLocation.latitude, endLocation.longitude)}"
         var url = DirectionFinder().getPublicDataUrl(startLocation, endLocation)
         UsingPublicAPI(url).execute()
+
     }
 
     override fun onBackPressed() {
@@ -56,6 +62,11 @@ class ChooseTransferList : AppCompatActivity() {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        width=transferRecyclerview.width
     }
 
     //  공공포털을 이용해서 대중교통 환승 목록 가져오기
@@ -145,9 +156,10 @@ class ChooseTransferList : AppCompatActivity() {
         override fun onPostExecute(result: ArrayList<TransitArray>?) {
             if (result != null) {
                 transferRecyclerview.layoutManager = LinearLayoutManager(this@ChooseTransferList)
-                transferRecyclerview.adapter = TransferAdapter(result) {
+                transferRecyclerview.adapter = TransferAdapter(result,width,height) {
 
                 }
+                println("width:${width}, ${height}")
             }
 
         }

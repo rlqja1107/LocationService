@@ -5,18 +5,37 @@ import android.location.Geocoder
 import android.os.AsyncTask
 
 import com.naver.maps.geometry.LatLng
-
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
+import kotlin.collections.ArrayList
 
 data class TransferData(var distance:Int,var duration:Double,var start:LatLng,var end:LatLng,var word:String="",var mode:String,var transit:Transit)
 data class TransitData(var startName:String="",var startX:Double=0.0,var startY:Double=0.0,var routeNum:String="",var endName:String="",var endX:Double=0.0,var endY:Double=0.0,var stationNum:Int=0)
 data class TransitArray(var dataList:ArrayList<TransitData>,var time:Int=0,var distance:Int)
 
 class DirectionFinder {
+    fun getODsayUrl(origin: LatLng,dest:LatLng):String{
+        return "https://api.odsay.com/v1/api/searchPubTransPath?SX=${origin.longitude}&SY=${origin.latitude}&EX=${dest.longitude}&EY=${dest.latitude}&apiKey=751H77J/gCws2AqqBTjkJwdYA1b7OSxY6f3gsriXsTY"
+    }
+    fun execution(url:String)
+    {
+        var client=OkHttpClient()
+        var request=Request.Builder().url(url).build()
+        var response=client.newCall(request).execute()
+        var data=response.body().toString()
+        try{
+            var jobject=JSONObject(data)
+        }
+        catch(e:Exception){
+
+        }
+    }
+    fun getWalkingDirectionUrl(origin: LatLng,dest: LatLng):String{
+        return "https://api.mapbox.com/directions/v5/mapbox/walking/${origin.longitude},${origin.latitude};${dest.longitude},${dest.latitude}?access_token=pk.eyJ1Ijoia2lta2lidW0iLCJhIjoiY2tkOHQ5bzAyMGowZTJzazZxNTAwMDhxYiJ9.DedrgGuwnH_R0oU8HDMEZg"
+    }
     fun getPublicDataUrl(origin:LatLng,dest: LatLng): String {
         return "http://ws.bus.go.kr/api/rest/pathinfo/getPathInfoByBusNSub?ServiceKey=ni9VQODwzGpRojq47XEsS7onMl0VqL9Kux%2FfdAMaI1Hy2Twgvfcj%2FDPsCrtewJNjALyxGGoN1B8psN9bIiH62A%3D%3D&startX=${origin.longitude}&startY=${origin.latitude}&endX=${dest.longitude}&endY=${dest.latitude}"
     }

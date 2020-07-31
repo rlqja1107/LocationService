@@ -1,65 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/outerLayout"
-    android:layout_width="74dp"
-    android:layout_height="74dp"
-    android:orientation="vertical">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/innerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="74dp"
+        android:layout_height="74dp">
 
         <TextView
             android:id="@+id/routeNum"
-            android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_width="65dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/directionImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/directionImage"
-            android:layout_width="63dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transferImage"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/brown_direction" />
+            app:layout_constraintTop_toBottomOf="@+id/lineNum" />
+
+    <TextView
+        android:id="@+id/lineNum"
+        android:layout_width="59dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/transferImage"
-            android:layout_width="35dp"
-            android:layout_height="17dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/routeNum"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.562"
+            android:layout_width="18dp"
+            android:layout_height="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/bus" />
 
-        <TextView
-            android:id="@+id/lineNum"
-            android:layout_width="59dp"
-            android:layout_height="18dp"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toTopOf="@+id/transferImage"
+        <ImageView
+            android:id="@+id/directionImage"
+            android:layout_width="57dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/transferImage"
+            app:srcCompat="@drawable/pink_direction" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
