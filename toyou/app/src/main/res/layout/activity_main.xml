@@ -14,8 +14,8 @@
     app:umanoDragView="@id/backSlide"
     app:umanoShadowHeight="4dp"
     app:umanoFadeColor="@android:color/transparent"
-    app:umanoPanelHeight="50dp"
-    app:umanoParallaxOffset="100dp"
+    app:umanoPanelHeight="125dp"
+    app:umanoParallaxOffset="125dp"
     >
 <androidx.drawerlayout.widget.DrawerLayout
     android:layout_width="match_parent"
@@ -39,22 +39,17 @@
             sothree:layout_constraintTop_toTopOf="parent"
             sothree:layout_constraintVertical_bias="1.0">
 
-
-            <Button
+            <ImageView
                 android:id="@+id/currentLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_width="102dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="0dp"
                 android:layout_marginBottom="10dp"
-                android:background="@android:color/black"
-                android:text="현재 위치"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
+                android:clickable="true"
+                android:focusable="false"
+                sothree:srcCompat="@drawable/location" />
         </RelativeLayout>
 
         <androidx.appcompat.widget.Toolbar
@@ -101,29 +96,15 @@
     <LinearLayout
         android:id="@+id/backSlide"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:clickable="true"
         android:focusable="false"
         android:orientation="vertical"
         >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/addressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click"
-                android:textSize="18dp"
-                android:paddingStart="5dp"
-                ></TextView>
-        </LinearLayout>
         <include
             layout="@layout/main_sliding_inner"
             android:id="@+id/bottom_slide"
-            android:layout_height="100dp"
+            android:layout_height="400dp"
             android:layout_width="match_parent"
             ></include>
     </LinearLayout>

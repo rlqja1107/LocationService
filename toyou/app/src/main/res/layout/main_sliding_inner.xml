@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="400dp">
@@ -22,6 +24,7 @@
         android:id="@+id/findWay"
         android:layout_width="59dp"
         android:layout_height="36dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="경로시작"
@@ -33,6 +36,7 @@
         android:id="@+id/endButton"
         android:layout_width="59dp"
         android:layout_height="36dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="목적지 설정"
@@ -46,6 +50,7 @@
 
         android:layout_width="59dp"
         android:layout_height="36dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="출발지 설정"
@@ -59,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="90dp"
         android:gravity="center"
         android:text="제목 :"
         android:textSize="16dp"
@@ -80,17 +85,17 @@
 
     <EditText
         android:id="@+id/titleText"
-        android:layout_width="326dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="61dp"
-        android:background="@drawable/text_outer"
-        android:ems="10"
-        android:hint="제목을 입력하세요"
-        android:inputType="textPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="270dp"
+        android:hint="제목을입력하세요"
+        android:inputType="text"
         android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,7 +104,7 @@
         android:layout_width="36dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/timer_click"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/titleText"
@@ -107,16 +112,58 @@
 
     <EditText
         android:id="@+id/contentText"
-        android:layout_width="381dp"
-        android:layout_height="168dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="null"
-        android:ems="10"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="70dp"
         android:gravity="top"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:text="자세한 내용을 입력해주세요(생략가능)"
+        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+    <TextView
+        android:id="@+id/addressText"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="18dp"
+        android:gravity="center_vertical"
+        android:text="Toyou"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:text="시간 설정 해주세요"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="삭제"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
