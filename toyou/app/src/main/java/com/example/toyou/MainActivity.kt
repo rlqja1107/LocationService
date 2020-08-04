@@ -58,31 +58,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var naverMap: NaverMap? = null
     var memo = MemoData()
     var realm: Realm? = null
+    var memodata:RealmResults<MemoData>?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context = this
-        deleteButton.visibility=View.INVISIBLE
+        deleteButton.visibility = View.INVISIBLE
         Realm.init(this)
-        var config=RealmConfiguration.Builder().migration { realm, oldVersion, newVersion ->
-            var schema=realm.schema
-            schema.create("MemoData").addField("id",String::class.java,FieldAttribute.PRIMARY_KEY,FieldAttribute.REQUIRED)
-                .addField("latitude",Double::class.java)
-                .addField("longitude",Double::class.java)
-                .addField("contents",String::class.java,FieldAttribute.REQUIRED)
-                .addField("title",String::class.java,FieldAttribute.REQUIRED)
-                .addField("year",Int::class.java)
-                .addField("month",Int::class.java)
-                .addField("day",Int::class.java)
-                .addField("hour",Int::class.java)
-                .addField("minute",Int::class.java)
+        var config = RealmConfiguration.Builder().migration { realm, oldVersion, newVersion ->
+            var schema = realm.schema
+            schema.create("MemoData").addField(
+                "id",
+                String::class.java,
+                FieldAttribute.PRIMARY_KEY,
+                FieldAttribute.REQUIRED
+            )
+                .addField("latitude", Double::class.java)
+                .addField("longitude", Double::class.java)
+                .addField("contents", String::class.java, FieldAttribute.REQUIRED)
+                .addField("title", String::class.java, FieldAttribute.REQUIRED)
+                .addField("year", Int::class.java)
+                .addField("month", Int::class.java)
+                .addField("day", Int::class.java)
+                .addField("hour", Int::class.java)
+                .addField("minute", Int::class.java)
         }.schemaVersion(1).build()
         Realm.setDefaultConfiguration(config)
-        realm=Realm.getDefaultInstance()
+        realm = Realm.getDefaultInstance()
 
 
-
-        var memodata = MemoClass(realm!!).getAllMemo()
+        memodata = MemoClass(realm!!).getAllMemo()
 
         var cal = GregorianCalendar()
         val nYear = cal.get(Calendar.YEAR)
@@ -129,9 +134,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val goSetting = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivityForResult(goSetting, 100)
             }).show()
-            initSetting(mapView, init_latitude, init_longitude, 0,memodata)
+            initSetting(mapView, init_latitude, init_longitude, 0, memodata!!)
         } else {
-            initSetting(mapView, init_latitude, init_longitude, 1,memodata)
+            initSetting(mapView, init_latitude, init_longitude, 1, memodata!!)
         }
         //핸드폰 데이터베이스로부터 마커 불러와서 찍히게하기
 
@@ -149,7 +154,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     memo.year = year
                     memo.month = month
                     memo.day = dayOfMonth
-                    bottom_slide.timeText.text="${memo.year}년 ${memo.month}월${memo.day}일 ${memo.hour}시 ${memo.minute}분"
+                    bottom_slide.timeText.text =
+                        "${memo.year}년 ${memo.month}월${memo.day}일 ${memo.hour}시 ${memo.minute}분"
                 }, nYear, nMonth, nDay
             )
             date.setTitle("시간 정하기")
@@ -159,7 +165,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 memo.minute = minute
 
             }, nHour, nMinute, false).show()
-
+        }
+        calendarImage.setOnClickListener {
+            var intent=Intent(this,CalendarActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -272,7 +281,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (slidingPanel.panelState == SlidingUpPanelLayout.PanelState.EXPANDED || slidingPanel.panelState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+        if (slidingPanel.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
             slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
@@ -344,7 +353,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //지도의 특성 변경, 길게 눌렀을 때 실행방법
         mapView.getMapAsync {
             naverMap = it
-            for(i in memoData){
+            for (i in memoData) {
                 initMarkerSetting(i)
             }
             if (checking == 1) {
@@ -362,8 +371,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 memo.latitude = latLng.latitude
                 memo.longitude = latLng.longitude
                 var mark = putMarker(latLng.latitude, latLng.longitude)
+                showTitle.text= DirectionFinder().convertToAddress(latLng.latitude, latLng.longitude)
                 showPanel(latLng.latitude, latLng.longitude, false, null, mark)
-                false
+
             }
 
             moveCamera(init_latitude, init_longitude)
@@ -415,7 +425,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var info = InfoWindow()
         info.adapter = object : InfoWindow.DefaultTextAdapter(this) {
             override fun getText(p0: InfoWindow): CharSequence {
-                return title
+                return data.title
             }
         }
         info.open(marker)
@@ -484,13 +494,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ), 200
         )
     }
-    private fun confirmButtonClick(saveMarker: Marker){
+
+    private fun confirmButtonClick(saveMarker: Marker) {
         bottom_slide.titleText.isClickable = true
         bottom_slide.timerImage.isClickable = true
         bottom_slide.contentText.isClickable = true
         bottom_slide.confirmButton.setOnClickListener {
             when {
-                bottom_slide.titleText.text.toString() == "" -> Toast.makeText(this, "제목을 입력해주세요", Toast.LENGTH_SHORT).show()
+                bottom_slide.titleText.text.toString() == "" -> Toast.makeText(
+                    this,
+                    "제목을 입력해주세요",
+                    Toast.LENGTH_SHORT
+                ).show()
                 memo.year == 0 -> Toast.makeText(this, "시간을 설정해주세요", Toast.LENGTH_SHORT).show()
                 memo.latitude == 0.0 -> Toast.makeText(
                     this,
@@ -498,52 +513,75 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Toast.LENGTH_SHORT
                 ).show()
                 else -> {
-
-                    saveMarker.icon = MarkerIcons.GRAY
-                    saveMarker.map = naverMap
-                    memo.title=bottom_slide.titleText.text.toString()
-                    memo.latitude=saveMarker.position.latitude
-                    memo.longitude=saveMarker.position.longitude
-                    memo.contents=bottom_slide.contentText.text.toString()
+                    with(saveMarker){
+                        icon= MarkerIcons.GRAY
+                        captionText=bottom_slide.titleText.toString()
+                        captionRequestedWidth=150
+                        setCaptionAligns(Align.Top)
+                        captionMinZoom=12.0
+                        map = naverMap
+                    }
+                    with(memo){
+                        title = bottom_slide.titleText.text.toString()
+                        latitude = saveMarker.position.latitude
+                        longitude = saveMarker.position.longitude
+                        contents = bottom_slide.contentText.text.toString()
+                    }
                     realm?.executeTransaction {
-                    it.copyToRealm(memo)
-                }
+                        it.copyToRealm(memo)
+
+                    }
                     Toast.makeText(this, "Toyou 메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                    memo = MemoData()
                 }
             }
 
         }
         confirmButton.text = "저장"
     }
-    private fun showPanel(latitude: Double, longitude: Double, touchFlag: Boolean,data:MemoData?,marker:Marker?) {
+
+    private fun showPanel(
+        latitude: Double,
+        longitude: Double,
+        touchFlag: Boolean,
+        data: MemoData?,
+        marker: Marker?
+    ) {
         if (touchFlag) {
-            deleteButton.visibility=View.VISIBLE
+            deleteButton.visibility = View.VISIBLE
             deleteButton.setOnClickListener {
                 realm?.executeTransaction {
-                    if(data!=null){
+                    if (data != null) {
                         data?.deleteFromRealm()
-                        Toast.makeText(this,"삭제되었습니다",Toast.LENGTH_SHORT).show()
-                    }
-                    else Toast.makeText(this, "삭제 실패",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "삭제되었습니다", Toast.LENGTH_SHORT).show()
+                    } else Toast.makeText(this, "삭제 실패", Toast.LENGTH_SHORT).show()
                 }
-                marker?.map=null
-                bottom_slide.titleText.setText("")
-                bottom_slide.contentText.setText("")
-                bottom_slide.timeText.text = "시간 설정해주세요"
-                bottom_slide.deleteButton.visibility=View.INVISIBLE
+                marker?.map = null
+                with(bottom_slide){
+                    titleText.setText("")
+                    contentText.setText("")
+                    timeText.text = "시간 설정해주세요"
+                    deleteButton.visibility = View.INVISIBLE
+                }
+
             }
-            bottom_slide.timeText.text="${data?.year}년 ${data?.month}월${data?.day}일 ${data?.hour}시${data?.minute}분"
-            bottom_slide.titleText.setText(data?.title.toString())
-            bottom_slide.contentText.setText(data?.contents.toString())
-            bottom_slide.titleText.isClickable = false
-            bottom_slide.timerImage.isClickable = false
-            bottom_slide.contentText.isClickable = false
+            with(bottom_slide){
+                timeText.text =
+                    "${data?.year}년 ${data?.month}월${data?.day}일 ${data?.hour}시${data?.minute}분"
+                titleText.setText(data?.title.toString())
+                contentText.setText(data?.contents.toString())
+                titleText.isClickable = false
+                timerImage.isClickable = false
+                contentText.isClickable = false
+                confirmButton.setOnClickListener {
+                    confirmButtonClick(marker!!)
+                }
+            }
+
             confirmButton.text = "수정"
-            bottom_slide.confirmButton.setOnClickListener {
-                confirmButtonClick(marker!!)
-            }
+
         } else {
-            deleteButton.visibility=View.INVISIBLE
+            deleteButton.visibility = View.INVISIBLE
             bottom_slide.titleText.setText("")
             bottom_slide.contentText.setText("")
             bottom_slide.timeText.text = "시간 설정해주세요"
@@ -551,7 +589,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         slidingPanel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-        bottom_slide.addressText.text = DirectionFinder().convertToAddress(latitude, longitude)
         bottom_slide.endButton.setOnClickListener {
             Toast.makeText(this@MainActivity, "목적지점이 지정되었습니다", Toast.LENGTH_SHORT).show()
             endLocation = LatLng(latitude, longitude)

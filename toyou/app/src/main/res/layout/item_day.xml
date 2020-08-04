@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="DayItemBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.example.toyou.ui.CalendarViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintDimensionRatio="2:3"
+            android:id="@+id/calendarLayout"
+            android:background="@drawable/calendar_sample"
+            >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                >
+            </View>
+            <TextView
+                setDayText="@{model.MCalendar}"
+                android:id="@+id/dayText"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:textSize="12sp"
+                tools:text="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dailyRecyclerView"
+                ></androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

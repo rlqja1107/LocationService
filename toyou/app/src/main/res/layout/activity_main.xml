@@ -15,7 +15,7 @@
     app:umanoShadowHeight="4dp"
     app:umanoFadeColor="@android:color/transparent"
     app:umanoPanelHeight="125dp"
-    app:umanoParallaxOffset="125dp"
+
     >
 <androidx.drawerlayout.widget.DrawerLayout
     android:layout_width="match_parent"
@@ -25,7 +25,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/currentLocation"
+            android:layout_width="102dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            sothree:srcCompat="@drawable/location" />
 
         <RelativeLayout
             android:id="@+id/map_View"
@@ -39,17 +52,6 @@
             sothree:layout_constraintTop_toTopOf="parent"
             sothree:layout_constraintVertical_bias="1.0">
 
-            <ImageView
-                android:id="@+id/currentLocation"
-                android:layout_width="102dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="10dp"
-                android:clickable="true"
-                android:focusable="false"
-                sothree:srcCompat="@drawable/location" />
         </RelativeLayout>
 
         <androidx.appcompat.widget.Toolbar
@@ -71,11 +73,12 @@
             android:id="@+id/showTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginEnd="65dp"
+            android:gravity="center_vertical"
             android:text="장소 및 위치 검색하기"
             android:textColor="@android:color/black"
-            android:textSize="18dp"
+            android:textSize="13sp"
             sothree:layout_constraintBottom_toBottomOf="@+id/toolbar"
             sothree:layout_constraintEnd_toEndOf="@+id/toolbar"
             sothree:layout_constraintStart_toStartOf="@+id/toolbar"

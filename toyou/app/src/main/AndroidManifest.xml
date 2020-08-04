@@ -25,6 +25,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".Search_List"/>
         <activity android:name=".ChooseTransferList"/>
+        <activity android:name=".CalendarActivity"/>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
