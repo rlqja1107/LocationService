@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.example.toyou.ui.EmptyViewModel" />
+            type="com.rlqja.toyou.ui.EmptyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
 
-            app:layout_constraintDimensionRatio="2:3" />
+            app:layout_constraintDimensionRatio="5:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

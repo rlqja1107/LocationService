@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="CalendarListBinding"
         >
         <import type="android.view.View"/>
         <variable
             name="model"
-            type="com.example.toyou.ui.CalendarListViewModel" />
+            type="com.rlqja.toyou.ui.CalendarListViewModel" />
     </data>
 <LinearLayout
 
@@ -21,12 +22,13 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:id="@+id/yearText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="16dp"
             android:textSize="18sp"
-            android:text="@{model.MTitle}"
+            android:text="Toyou Calendar"
             ></TextView>
 
     </LinearLayout>
@@ -93,10 +95,12 @@
         android:textSize="14sp"></TextView>
 
 </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:orientation="horizontal"
+        android:id="@+id/calendarPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/calendarRecyclerView"
         />
 </LinearLayout>
 </layout>

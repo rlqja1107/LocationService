@@ -14,7 +14,7 @@
     app:umanoDragView="@id/backSlide"
     app:umanoShadowHeight="4dp"
     app:umanoFadeColor="@android:color/transparent"
-    app:umanoPanelHeight="125dp"
+    app:umanoPanelHeight="50dp"
 
     >
 <androidx.drawerlayout.widget.DrawerLayout
@@ -27,6 +27,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+        <ImageView
+            android:id="@+id/switchImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="65dp"
+            app:layout_constraintEnd_toStartOf="@+id/destImage"
+            app:layout_constraintTop_toTopOf="parent"
+            sothree:srcCompat="@drawable/change" />
+
+        <TextView
+            android:id="@+id/destinationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:text="목적지를 입력하세요"
+            android:textAlignment="viewStart"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <ImageView
+            android:id="@+id/destImage"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            sothree:srcCompat="@drawable/bg" />
+
+        <ImageView
+            android:id="@+id/deleteDestImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/destImage"
+            app:layout_constraintEnd_toStartOf="@+id/destinationText"
+            app:layout_constraintStart_toStartOf="@+id/destImage"
+            app:layout_constraintTop_toTopOf="@+id/destImage"
+            sothree:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
         <ImageView
             android:id="@+id/currentLocation"
@@ -45,12 +91,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"
             sothree:layout_constraintBottom_toBottomOf="parent"
             sothree:layout_constraintEnd_toEndOf="parent"
-            sothree:layout_constraintHorizontal_bias="1.0"
             sothree:layout_constraintStart_toStartOf="parent"
             sothree:layout_constraintTop_toTopOf="parent"
-            sothree:layout_constraintVertical_bias="1.0">
+            >
 
         </RelativeLayout>
 
@@ -74,11 +121,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="85dp"
-            android:layout_marginEnd="65dp"
+            android:layout_marginEnd="55dp"
             android:gravity="center_vertical"
             android:text="장소 및 위치 검색하기"
             android:textColor="@android:color/black"
             android:textSize="13sp"
+            android:textStyle="bold"
             sothree:layout_constraintBottom_toBottomOf="@+id/toolbar"
             sothree:layout_constraintEnd_toEndOf="@+id/toolbar"
             sothree:layout_constraintStart_toStartOf="@+id/toolbar"
@@ -89,7 +137,7 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/naviagtion"
+        android:id="@+id/navigation"
         sothree:headerLayout="@layout/navi_header"
         sothree:menu="@menu/navi_menu"
         android:layout_gravity="start"
@@ -110,5 +158,6 @@
             android:layout_height="400dp"
             android:layout_width="match_parent"
             ></include>
+
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

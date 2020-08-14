@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="com.example.toyou.ui.CalendarHeaderModel" />
+            type="com.rlqja.toyou.ui.CalendarHeaderModel" />
     </data>
 
     <LinearLayout
@@ -18,13 +18,15 @@
         android:orientation="vertical"
         >
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             setCalendarHeaderText="@{model.MHeaderDate}"
+            android:id="@+id/headerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:textColor="@android:color/holo_green_light"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            />
     </LinearLayout>
 
 </layout>

@@ -8,6 +8,28 @@
     android:layout_height="400dp">
 
 
+    <Button
+        android:id="@+id/calendar"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="일정"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/memoButton"
+        android:layout_width="59dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_click_bottom"
+        android:text="메모"
+        app:layout_constraintStart_toEndOf="@+id/calendar"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/calendarImage"
         android:layout_width="30dp"
@@ -29,18 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contentText" />
-
-    <Button
-        android:id="@+id/findWay"
-        android:layout_width="59dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/button_click_bottom"
-        android:text="경로시작"
-        android:textSize="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/endButton"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/endButton"
@@ -66,7 +76,7 @@
         android:text="출발지 설정"
         android:textColor="#FFF0F8FF"
         android:textSize="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/findWay"
+        app:layout_constraintEnd_toStartOf="@+id/endButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -110,10 +120,10 @@
 
     <EditText
         android:id="@+id/contentText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="384dp"
+        android:layout_height="144dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="70dp"
         android:gravity="top"
@@ -122,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        app:layout_constraintTop_toBottomOf="@+id/timeText" />
 
     <TextView
         android:id="@+id/timeText"
@@ -141,11 +151,11 @@
         android:id="@+id/deleteButton"
         android:layout_width="59dp"
         android:layout_height="36dp"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/button_click_bottom"
         android:text="삭제"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/startButton"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

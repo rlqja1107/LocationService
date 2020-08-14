@@ -22,11 +22,11 @@
             android:text="Distance"
             android:textSize="15dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/transferRecyclerview"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintBottom_toTopOf="@+id/transferRecyclerview"
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transferlist"
             android:layout_width="match_parent"
@@ -47,9 +47,9 @@
             android:text="Time"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/transferRecyclerview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--            app:layout_constraintBottom_toTopOf="@+id/transferRecyclerview"-->
+
 </LinearLayout>
