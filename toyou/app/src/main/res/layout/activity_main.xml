@@ -1,163 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slidingPanel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:gravity="bottom"
-    android:id="@+id/slidingPanel"
     android:orientation="vertical"
-    tools:context=".MainActivity"
     app:umanoDragView="@id/backSlide"
-    app:umanoShadowHeight="4dp"
     app:umanoFadeColor="@android:color/transparent"
-    app:umanoPanelHeight="50dp"
+    app:umanoPanelHeight="46dp"
+    app:umanoShadowHeight="4dp"
+    tools:context=".MainActivity"
 
     >
-<androidx.drawerlayout.widget.DrawerLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/Main_drawer"
-    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/Main_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        tools:context=".MainActivity">
 
-        <ImageView
-            android:id="@+id/switchImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="65dp"
-            app:layout_constraintEnd_toStartOf="@+id/destImage"
-            app:layout_constraintTop_toTopOf="parent"
-            sothree:srcCompat="@drawable/change" />
 
-        <TextView
-            android:id="@+id/destinationText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="85dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="50dp"
-            android:text="목적지를 입력하세요"
-            android:textAlignment="viewStart"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7">
 
-        <ImageView
-            android:id="@+id/destImage"
-            android:layout_width="match_parent"
-            android:layout_height="59dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            sothree:srcCompat="@drawable/bg" />
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/mainBottomNavigation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/map_View"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:menu="@menu/bottom_navigation"
+                    android:background="?android:attr/windowBackground"
+                    app:itemTextColor="@color/purple"
+                    >
 
-        <ImageView
-            android:id="@+id/deleteDestImage"
+                </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+                <RelativeLayout
+                    android:id="@+id/map_View"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintVertical_bias="0.0"
+                    sothree:layout_constraintBottom_toBottomOf="parent"
+                    sothree:layout_constraintEnd_toEndOf="parent"
+                    sothree:layout_constraintStart_toStartOf="parent"
+                    sothree:layout_constraintTop_toTopOf="parent">
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/bg"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    sothree:layout_constraintEnd_toEndOf="parent"
+                    sothree:layout_constraintStart_toEndOf="@+id/map_View"
+                    sothree:layout_constraintStart_toStartOf="@+id/map_View"
+                    sothree:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/currentLocation"
+                    android:layout_width="61dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    sothree:srcCompat="@drawable/location" />
+
+                <TextView
+                    android:id="@+id/showTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginEnd="55dp"
+                    android:gravity="center_vertical"
+                    android:text="장소 및 위치 검색하기"
+                    android:textColor="@android:color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    sothree:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                    sothree:layout_constraintEnd_toEndOf="@+id/toolbar"
+                    sothree:layout_constraintStart_toStartOf="@+id/toolbar"
+                    sothree:layout_constraintTop_toTopOf="@+id/toolbar"></TextView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/destImage"
-            app:layout_constraintEnd_toStartOf="@+id/destinationText"
-            app:layout_constraintStart_toStartOf="@+id/destImage"
-            app:layout_constraintTop_toTopOf="@+id/destImage"
-            sothree:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
-        <ImageView
-            android:id="@+id/currentLocation"
-            android:layout_width="102dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:clickable="true"
-            android:focusable="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            sothree:srcCompat="@drawable/location" />
-
-        <RelativeLayout
-            android:id="@+id/map_View"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="start"
+            sothree:headerLayout="@layout/navi_header"
+            sothree:menu="@menu/navi_menu" />
 
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            sothree:layout_constraintBottom_toBottomOf="parent"
-            sothree:layout_constraintEnd_toEndOf="parent"
-            sothree:layout_constraintStart_toStartOf="parent"
-            sothree:layout_constraintTop_toTopOf="parent"
-            >
+    </androidx.drawerlayout.widget.DrawerLayout>
 
-        </RelativeLayout>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/bg"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            sothree:layout_constraintEnd_toEndOf="parent"
-            sothree:layout_constraintStart_toEndOf="@+id/map_View"
-            sothree:layout_constraintStart_toStartOf="@+id/map_View"
-            sothree:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/showTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="85dp"
-            android:layout_marginEnd="55dp"
-            android:gravity="center_vertical"
-            android:text="장소 및 위치 검색하기"
-            android:textColor="@android:color/black"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            sothree:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            sothree:layout_constraintEnd_toEndOf="@+id/toolbar"
-            sothree:layout_constraintStart_toStartOf="@+id/toolbar"
-            sothree:layout_constraintTop_toTopOf="@+id/toolbar"></TextView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/navigation"
-        sothree:headerLayout="@layout/navi_header"
-        sothree:menu="@menu/navi_menu"
-        android:layout_gravity="start"
-        />
-
-</androidx.drawerlayout.widget.DrawerLayout>
     <LinearLayout
         android:id="@+id/backSlide"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="320dp"
         android:clickable="true"
         android:focusable="false"
-        android:orientation="vertical"
-        >
-        <include
-            layout="@layout/main_sliding_inner"
-            android:id="@+id/bottom_slide"
-            android:layout_height="400dp"
-            android:layout_width="match_parent"
-            ></include>
+        android:orientation="vertical">
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/bottom_slide"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"/>
     </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

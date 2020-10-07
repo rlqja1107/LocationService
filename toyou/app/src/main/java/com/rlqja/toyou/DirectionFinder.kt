@@ -53,13 +53,12 @@ class DirectionFinder {
         return "https://apis.openapi.sk.com/tmap/routes/pedestrian?appKey=l7xxe7f1d6ac2e2e4f30a763b733810adea7&startX=${origin.longitude}&startY=${origin.latitude}&endX=${dest.longitude}&endY=${dest.latitude}&passList=${pass.longitude},${pass.latitude}&startName=go&endName=end"
     }
     fun convertToAddress(latitude:Double,longitude: Double):String{
-        var geo=Geocoder(MainActivity.context)
-        var address= geo.getFromLocation(latitude,longitude,1)
+        val geo=Geocoder(MainActivity.context)
+        val address= geo.getFromLocation(latitude,longitude,1)
         if(address.size==0)
             return "해당되는 주소 정보는 없습니다."
         else {
-            var addressline=address[0].getAddressLine(0).replace("대한민국","")
-
+            val addressline=address[0].getAddressLine(0).replace("대한민국","")
             return addressline
         }
 

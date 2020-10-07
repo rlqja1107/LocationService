@@ -31,6 +31,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'me.relex:circleindicator:2.1.4'
+    implementation 'com.github.florent37:materialtextfield:1.0.7'
     implementation 'com.kakao.sdk:v2-link:2.0.0'
     implementation 'com.kakao.sdk:v2-talk:2.0.0'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'

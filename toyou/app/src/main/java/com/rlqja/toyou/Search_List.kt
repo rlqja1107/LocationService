@@ -14,14 +14,19 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import io.realm.FieldAttribute
 import io.realm.Realm
+import io.realm.RealmConfiguration
+import io.realm.annotations.RealmModule
 import kotlinx.android.synthetic.main.search_activity.*
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
+import java.util.*
 import javax.net.ssl.HttpsURLConnection
+import kotlin.collections.ArrayList
 
 
 class Search_List : AppCompatActivity() {
@@ -29,19 +34,18 @@ class Search_List : AppCompatActivity() {
     var listMenu = ArrayList<listData>()
     var searchMenu = ArrayList<listData>()
     lateinit var realm: Realm
-    var startOrEnd:Byte=0
-    var searchList = 0
     //searchOrList가 1이면 menu에서 검색, 0이면 기존데이터베이스에서 검색
     var searchOrList = 0
     var adapter: ArrayAdapter<String>? = null
+    var distributeMemoOrCalendar=0.toByte()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.search_activity)
-
+        //1이면 Calendar 에서 직접 추가할 때, 검색기능 활성화
+        distributeMemoOrCalendar=intent.getByteExtra("distributeMemoOrCalendar",0.toByte())
 
         setSupportActionBar(toolbar_list)
-        startOrEnd=intent.getByteExtra("startOrEnd",0)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -50,7 +54,8 @@ class Search_List : AppCompatActivity() {
         //     (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY)
         //핸드폰 데이터베이스에서 검색 목록 가져옴
 
-        realm = Realm.getDefaultInstance()
+        val config=RealmConfiguration.Builder().modules(RealmModuleListData()).name("search.realm").schemaVersion(4).build()
+        realm = Realm.getInstance(config)
         val result = listDao(realm).getAllDemo()
         for (i in result) {
             temp.add(i.location)
@@ -82,6 +87,10 @@ class Search_List : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        realm.close()
+        super.onBackPressed()
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         var searchView = toolbar_list.menu.findItem(R.id.search).actionView as SearchView
@@ -150,10 +159,11 @@ class Search_List : AppCompatActivity() {
 
     private fun intentToMain(listData: listData) {
         var intent = Intent(this, MainActivity::class.java)
+        if(distributeMemoOrCalendar==1.toByte()){intent=Intent(this,MemoOnCalendar::class.java) }
+
         intent.putExtra("longitude", listData.longitude)
         intent.putExtra("latitude", listData.latitude)
         intent.putExtra("location", listData.location)
-        intent.putExtra("startOrEnd",startOrEnd)
         realm.close()
         setResult(20, intent)
         finish()
@@ -163,25 +173,25 @@ class Search_List : AppCompatActivity() {
         if (newText.length >= 2) {
             object : Thread() {
                 override fun run() {
-                    var url =
+                    val url =
                         URL("https://dapi.kakao.com/v2/local/search/keyword.json?query=${newText}&size=10")
-                    var http = url.openConnection() as HttpsURLConnection
+                    val http = url.openConnection() as HttpsURLConnection
                     http.requestMethod = "GET"
                     http.setRequestProperty(
                         "Authorization",
                         "KakaoAK 22e602b50f292330b9b1099d7c158846"
                     )
                     http.connect()
-                    var sb = StringBuffer()
-                    var br = BufferedReader(InputStreamReader(http.inputStream, "UTF-8"))
+                    val sb = StringBuffer()
+                    val br = BufferedReader(InputStreamReader(http.inputStream, "UTF-8"))
                     var line: String?
                     while (true) {
                         line = br.readLine()
                         if (line == null) break
                         sb.append(line).append("\n")
                     }
-                    var jsonObject = JSONObject(sb.toString())
-                    var array = jsonObject.getJSONArray("documents")
+                    val jsonObject = JSONObject(sb.toString())
+                    val array = jsonObject.getJSONArray("documents")
                     http.disconnect()
                     br.close()
                     temp.clear()
@@ -218,6 +228,8 @@ class Search_List : AppCompatActivity() {
         }
 
     }
+    @RealmModule(classes=[listData::class])
+    inner class RealmModuleListData
 
 
 }

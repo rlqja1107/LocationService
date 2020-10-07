@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:background="@android:color/holo_green_light"
+        android:background="@color/purple"
         android:orientation="horizontal"
         >
         <TextView
@@ -29,6 +29,7 @@
             android:padding="16dp"
             android:textSize="18sp"
             android:text="Toyou Calendar"
+            android:textColor="@color/darkgreen"
             ></TextView>
 
     </LinearLayout>

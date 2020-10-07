@@ -16,12 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+        <!--        android:background="@drawable/calendar_day_pressed_event"-->
 
         <LinearLayout
             android:id="@+id/calendarLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/calendar_sample"
             android:orientation="vertical"
             app:layout_constraintDimensionRatio="5:9"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainListSample"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/transfer_list_sample_outer"
@@ -9,12 +10,12 @@
         android:id="@+id/mainTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"></TextView>
+        android:textSize="10sp"></TextView>
 
     <TextView
         android:id="@+id/mainDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="9sp"></TextView>
+        android:textSize="6sp"></TextView>
 
 </LinearLayout>

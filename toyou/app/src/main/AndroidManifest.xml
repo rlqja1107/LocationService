@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstActivity"/>
         <activity android:name=".MainActivity">
                         <intent-filter>
                             <action android:name="android.intent.action.VIEW" />
@@ -32,11 +33,12 @@
                                 android:scheme="@string/kakao_scheme" />
                         </intent-filter>
         </activity>
-
         <activity android:name=".Search_List"/>
         <activity android:name=".ChooseTransferList"/>
         <activity android:name="com.rlqja.toyou.CalendarActivity"/>
-
+        <activity android:name=".MemoOnCalendar"/>
+        <activity android:name=".DialogView"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"></activity>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="w2gacxjh1s"

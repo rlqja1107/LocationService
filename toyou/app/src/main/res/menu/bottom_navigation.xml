@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/onlyMemo"
+        android:icon="@drawable/memo"
+        android:title="메모만"></item>
+    <item
+        android:id="@+id/onlyCalendar"
+        android:icon="@drawable/custom_calendar_navigation"
+        android:title="일정만"></item>
+    <item
+        android:id="@+id/allCanLook"
+        android:icon="@drawable/all"
+        android:title="모두보기"></item>
+</menu>

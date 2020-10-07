@@ -12,16 +12,18 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.first_show.*
 
 class loading_activity:AppCompatActivity() {
     private var permission:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.first_show)
+
         val criteria = Criteria()
         criteria.accuracy = Criteria.ACCURACY_MEDIUM
         criteria.powerRequirement = Criteria.POWER_MEDIUM
-        val mainActivity = Intent(this, FirstActivity::class.java)
+        val mainActivity = Intent(this, MainActivity::class.java)
         val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val isGPSEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val isNetworkEnabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -75,6 +77,8 @@ class loading_activity:AppCompatActivity() {
     private fun goMainActivity(mainActivity:Intent, check:Int){
         var handler = Handler()
         handler.postDelayed({
+            mainActivity.putExtra("moveLatitude",0.0)
+            mainActivity.putExtra("moveLongitude",0.0)
             mainActivity.putExtra("checkingPermission", check)
             mainActivity.putExtra("latitude", 37.56398)
             mainActivity.putExtra("longitude", 126.97935)

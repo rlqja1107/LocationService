@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="@color/darkgreen"></solid>
+            <corners android:bottomLeftRadius="20dp"
+                android:bottomRightRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp"
+                ></corners>
+        </shape>
+    </item>
+    <item android:state_selected="false">
+        <shape>
+            <solid android:color="@color/purple"></solid>
+            <corners android:bottomLeftRadius="20dp"
+                android:bottomRightRadius="20dp"
+                android:topLeftRadius="20dp"
+                android:topRightRadius="20dp">
+            </corners>
+        </shape>
+
+    </item>
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/colorPrimary"></solid>
+            <solid android:color="@color/darkgreen"></solid>
             <corners android:bottomLeftRadius="20dp"
                 android:bottomRightRadius="20dp"
                 android:topLeftRadius="20dp"
@@ -12,7 +33,7 @@
     </item>
     <item android:state_pressed="false">
         <shape>
-            <solid android:color="@android:color/holo_green_light"></solid>
+            <solid android:color="@color/purple"></solid>
             <corners android:bottomLeftRadius="20dp"
                 android:bottomRightRadius="20dp"
                 android:topLeftRadius="20dp"
@@ -23,7 +44,7 @@
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@color/colorPrimary"></solid>
+            <solid android:color="@color/darkgreen"></solid>
             <corners android:bottomLeftRadius="20dp"
                 android:bottomRightRadius="20dp"
                 android:topLeftRadius="20dp"

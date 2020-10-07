@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="#009688"
+    android:background="@color/purple"
     android:orientation="vertical">
 
     <ImageView
@@ -18,7 +18,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="Elec ToYou"
+        android:text="GAZI"
+        android:textColor="@color/darkgreen"
         android:textSize="25sp"
         android:textStyle="bold" />
 

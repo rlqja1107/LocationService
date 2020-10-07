@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">toyou</string>
+    <string name="app_name">GAJI</string>
     <string name="kakao_appkey">32e11f11ef6c4eb8434fcb4e2efd7a90</string>
     <string name="kakao_scheme">kakao32e11f11ef6c4eb8434fcb4e2efd7a90</string>
     <string name="kakaolink_host">kakaolink</string>

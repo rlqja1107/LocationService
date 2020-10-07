@@ -15,6 +15,7 @@ class DailyListAdapter(var dailyList:ArrayList<MemoData>):RecyclerView.Adapter<D
     }
 
     override fun getItemCount(): Int {
+
         return dailyList.size
     }
 
